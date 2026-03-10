@@ -10,12 +10,7 @@ ETL + Postgres search mart + LLM agent (RAG-lite) for OWS v3 (GraphQL).
 docker compose up -d
 
 2) Применить SQL:
-<<<<<<< HEAD
 PowerShell: Get-Content .\submit.sql | docker exec -i goszakup-ai-db-1 psql -U ows -d ows
-=======
-PowerShell:
-Get-Content .\submit.sql | docker exec -i goszakup-ai-db-1 psql -U ows -d ows
->>>>>>> 7d0f531 (docs: update README)
 
 3) Запустить агента:
 pip install python-dotenv psycopg2-binary requests
@@ -28,9 +23,4 @@ select * from f_search('trdbuy', 5);
 select * from f_search('obtrdbuy', 5);
 
 .env:
-<<<<<<< HEAD
 Используй .env.example как шаблон. .env не коммитить.
-
-=======
-Используй .env.example как шаблон. .env не коммитить.
->>>>>>> 7d0f531 (docs: update README)
