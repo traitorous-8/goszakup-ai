@@ -13,7 +13,7 @@ docker compose up -d
 PowerShell: Get-Content .\submit.sql | docker exec -i goszakup-ai-db-1 psql -U ows -d ows
 
 3) Запустить агента:
-pip install python-dotenv psycopg2-binary requests
+pip install python-dotenv psycopg2-binary requests,
 python agent.py
 
 Проверки (psql):
