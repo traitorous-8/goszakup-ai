@@ -21,6 +21,3 @@ select source, count(*) from d_search_items group by source;
 select * from f_search('contract', 5);
 select * from f_search('trdbuy', 5);
 select * from f_search('obtrdbuy', 5);
-
-.env:
-Используй .env.example как шаблон. .env не коммитить.
