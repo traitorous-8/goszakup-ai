@@ -1,36 +1,28 @@
-Агент реализован в `agent.py`.
+ETL + Postgres search mart + LLM agent (RAG-lite) for OWS v3 (GraphQL).
 
-
-
-Пайплайн:
-
-1\) Пользователь вводит вопрос (RU/KZ) в консоли.
-
-2\) Агент извлекает релевантный контекст из PostgreSQL через функцию `f\_search(q, k)` (витрина `d\_search\_items`, tsvector + GIN).
-
-3\) Найденные строки (source, source\_external\_id, item\_id, item\_preview) передаются в LLM как контекст.
-
-4\) LLM генерирует ответ на естественном языке на основе контекста (если контекста нет — сообщает, что ничего не найдено).
-
-
-
-Конфигурация:
-
-\- Переменные берутся из `.env`: `AI\_BASE\_URL`, `AI\_API\_KEY`, `AI\_MODEL`, параметры БД (`DB\_HOST/PORT/NAME/USER/PASSWORD`).
-
-
+Что есть:
+- raw_ows (JSONB) + витрины d_* + d_search_items (tsvector + GIN)
+- SQL функция f_search(q,k)
+- agent.py: вопрос RU/KZ -> f_search -> контекст -> LLM (nitec-ai) -> ответ
 
 Запуск:
+1) Поднять Postgres:
+docker compose up -d
 
-```bash
+2) Применить SQL:
+PowerShell:
+Get-Content .\submit.sql | docker exec -i goszakup-ai-db-1 psql -U ows -d ows
 
+3) Запустить агента:
 pip install python-dotenv psycopg2-binary requests
 python agent.py
 
-Примеры запросов:
-найди contract по limit\_5
-что есть по trdbuy
+Проверки (psql):
+select source, count(*) from d_search_items group by source;
+select * from f_search('contract', 5);
+select * from f_search('trdbuy', 5);
+select * from f_search('obtrdbuy', 5);
 
-Ожидаемый результат:
-Агент выводит таблицу найденных item\_id и краткий текстовый ответ, сформированный LLM.
+.env:
+Используй .env.example как шаблон. .env не коммитить.
 
