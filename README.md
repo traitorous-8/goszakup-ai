@@ -25,28 +25,12 @@
 ```bash
 
 pip install python-dotenv psycopg2-binary requests
-
 python agent.py
 
-
-
-
-
 Примеры запросов:
-
-
-
 найди contract по limit\_5
-
-
-
 что есть по trdbuy
 
-
-
 Ожидаемый результат:
-
-
-
 Агент выводит таблицу найденных item\_id и краткий текстовый ответ, сформированный LLM.
 
